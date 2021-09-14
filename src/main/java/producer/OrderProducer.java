@@ -14,7 +14,7 @@ public class OrderProducer {
 
 	public static void main (String[] args) throws ExecutionException, InterruptedException {
 		KafkaProducer<String, String> producer = new KafkaProducer<>(PRODUCER_CONFIG());
-		var record = new ProducerRecord<>("ECOMMERCE_NEW-ORDER", UUID.randomUUID().toString(), "valor");
+
 //		Callback callback = (data, ex) -> {
 //			if (ex != null) {
 //				ex.printStackTrace();
@@ -36,7 +36,7 @@ public class OrderProducer {
 					return;
 				}
 
-				System.out.println(" =============== ");
+				System.out.println("=============== ");
 				System.out.println("TOPIC: " + metadata.topic());
 				System.out.println("PARTITION: " + metadata.partition());
 				System.out.println("OFFSET: " + metadata.offset());
@@ -44,7 +44,15 @@ public class OrderProducer {
 			}
 		};
 
-		producer.send(record, callback).get();
+		for (var i = 0; i < 200; i++) {
+
+			var orderRecord = new ProducerRecord<>("ECOMMERCE_NEW-ORDER", UUID.randomUUID().toString(), "Pedido");
+			producer.send(orderRecord, callback).get();
+
+			var emailRecord = new ProducerRecord<>("ECOMMERCE_SEND-EMAIL", UUID.randomUUID().toString(), "E-mail");
+			producer.send(emailRecord, callback).get();
+
+		}
 	}
 
 }
