@@ -9,13 +9,7 @@ import java.util.Properties;
 
 public class Constants {
 
-	public static Properties PRODUCER_CONFIG () {
-		Properties properties = new Properties();
-		properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-		properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-		properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-		return properties;
-	}
+
 
 	public static Properties CONSUMER_CONFIG(String groupId) {
 		Properties properties = new Properties();

@@ -1,9 +1,11 @@
-package producer;
+package main;
+
+import producer.MyProducer;
 
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
-public class StartApp {
+public class ProduceNewOrderMain {
 
 	public static void main (String[] args) throws ExecutionException, InterruptedException {
 
