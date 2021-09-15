@@ -15,7 +15,7 @@ public class FraudCheckMain {
 		String groupId = fraudCheckService.getClass().getSimpleName();
 		ConsumerRecordFunction process = fraudCheckService::process;
 
-		try(var myConsumer = new MyConsumer(groupId, process)) {
+		try(var myConsumer = new MyConsumer(groupId, process, "ECOMMERCE_NEW-ORDER")) {
 			myConsumer.run(Duration.ofMillis(1000));
 		}
 	}

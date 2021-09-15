@@ -8,6 +8,7 @@ import utils.ConsumerRecordFunction;
 
 import java.io.Closeable;
 import java.time.Duration;
+import java.util.Collections;
 import java.util.Properties;
 
 public class MyConsumer implements Closeable {
@@ -15,10 +16,11 @@ public class MyConsumer implements Closeable {
 	private final KafkaConsumer<String, String> consumer;
 	private final ConsumerRecordFunction function;
 
-	public MyConsumer (String groupId, ConsumerRecordFunction function) {
+	public MyConsumer (String groupId, ConsumerRecordFunction function, String topic) {
 		Properties properties = CONSUMER_CONFIG(groupId);
-		this.consumer = new KafkaConsumer<String, String>(properties);
 		this.function = function;
+		this.consumer = new KafkaConsumer<String, String>(properties);
+		this.consumer.subscribe(Collections.singletonList(topic));
 	}
 
 	@Override
